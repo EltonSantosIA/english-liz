@@ -1,0 +1,998 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>English Path · Eliz</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#1B2240;--ink-soft:#5A618A;--paper:#FFFBF6;--card:#FFFFFF;
+  --coral:#FF6B5B;--coral-dk:#E8503F;--teal:#10B5A4;--teal-dk:#0C9183;
+  --sun:#FFC24B;--grape:#7C5CFC;--green:#2FB873;--red:#F4604C;--line:#ECE6DC;
+  --shadow:0 14px 34px -16px rgba(27,34,64,.30);--shadow-sm:0 6px 16px -10px rgba(27,34,64,.35);
+}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+html,body{height:100%}
+body{font-family:'Nunito',system-ui,sans-serif;color:var(--ink);-webkit-font-smoothing:antialiased;overflow-x:hidden;
+  background:radial-gradient(1200px 600px at 85% -8%,#FFE9D6 0%,transparent 55%),
+             radial-gradient(900px 500px at -5% 8%,#DCF6F1 0%,transparent 50%),var(--paper);}
+.wrap{max-width:540px;margin:0 auto;min-height:100vh;padding:0 18px 120px;position:relative}
+h1,h2,h3,.fred{font-family:'Fredoka',sans-serif}
+button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit}
+.hidden{display:none!important}
+.ph{font-family:'Nunito';font-style:italic;color:var(--grape);font-weight:700;font-size:13.5px;margin-top:3px;letter-spacing:.2px}
+.ph::before{content:"🗣 ";font-style:normal;opacity:.7}
+
+/* topbar */
+.topbar{display:flex;align-items:center;gap:12px;padding:20px 4px 14px;position:sticky;top:0;z-index:20;
+  background:linear-gradient(var(--paper) 72%,transparent)}
+.brand{display:flex;align-items:center;gap:9px;font-family:'Fredoka';font-weight:700;font-size:20px;letter-spacing:-.2px}
+.logo{width:34px;height:34px;border-radius:11px;background:linear-gradient(140deg,var(--coral),var(--grape));
+  display:grid;place-items:center;color:#fff;font-size:18px;box-shadow:var(--shadow-sm);transform:rotate(-6deg)}
+.stats{margin-left:auto;display:flex;gap:8px}
+.pill{display:flex;align-items:center;gap:5px;background:var(--card);border:1.5px solid var(--line);
+  border-radius:999px;padding:6px 11px;font-weight:800;font-size:14px;box-shadow:var(--shadow-sm)}
+.pill.xp .ic{color:var(--sun)}.pill.streak .ic{color:var(--coral)}
+
+/* hero */
+.hi{font-family:'Fredoka';font-weight:600;font-size:29px;line-height:1.13;letter-spacing:-.6px;padding:4px 4px 0}
+.hi b{color:var(--coral)}
+.sub{color:var(--ink-soft);font-weight:700;margin:6px 4px 0;font-size:15px}
+
+/* word of day */
+.wod{margin:18px 0 4px;background:linear-gradient(135deg,#fff,#FFF8EF);border:1.5px solid var(--line);
+  border-radius:20px;padding:16px 18px;box-shadow:var(--shadow-sm);position:relative;overflow:hidden}
+.wod .tag{font-family:'Fredoka';font-weight:600;font-size:11.5px;letter-spacing:1.4px;text-transform:uppercase;color:var(--sun)}
+.wod .w{font-family:'Fredoka';font-weight:600;font-size:27px;letter-spacing:-.4px;margin-top:2px}
+.wod .t{color:var(--ink-soft);font-weight:800;font-size:15px}
+.wod .spk{position:absolute;right:14px;top:50%;transform:translateY(-50%);width:46px;height:46px;border-radius:14px;
+  background:var(--teal);color:#fff;display:grid;place-items:center;font-size:20px;box-shadow:var(--shadow-sm)}
+.wod .spk:active{transform:translateY(-50%) scale(.92)}
+
+/* review button */
+.review{display:flex;align-items:center;gap:12px;margin-top:12px;background:var(--grape);color:#fff;
+  border-radius:18px;padding:15px 18px;box-shadow:0 8px 0 -2px #5b3fd6;font-family:'Fredoka';font-weight:600;font-size:17px}
+.review:active{transform:translateY(3px);box-shadow:0 5px 0 -2px #5b3fd6}
+.review .big{font-size:22px}
+.review small{display:block;font-family:'Nunito';font-weight:700;font-size:12.5px;opacity:.9;margin-top:1px}
+
+.section-h{font-family:'Fredoka';font-weight:600;font-size:14px;color:var(--ink-soft);
+  text-transform:uppercase;letter-spacing:1.4px;margin:28px 4px 12px}
+
+/* department grid */
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:13px}
+.dept{background:var(--card);border:1.5px solid var(--line);border-radius:22px;padding:16px 15px;
+  box-shadow:var(--shadow-sm);text-align:left;position:relative;transition:transform .12s;animation:rise .45s both}
+.dept:active{transform:scale(.97)}
+.dept .ic{width:46px;height:46px;border-radius:14px;display:grid;place-items:center;font-size:25px;color:#fff}
+.dept .t{font-family:'Fredoka';font-weight:600;font-size:16.5px;margin-top:11px;letter-spacing:-.2px;line-height:1.1}
+.dept .d{color:var(--ink-soft);font-weight:700;font-size:12px;margin-top:3px;line-height:1.25}
+.dept .bar{height:6px;background:#F0EBE2;border-radius:99px;margin-top:11px;overflow:hidden}
+.dept .bar>i{display:block;height:100%;border-radius:99px;transition:width .5s}
+.dept .lv{font-family:'Fredoka';font-weight:600;font-size:11px;color:var(--ink-soft);margin-top:6px}
+@keyframes rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+
+/* dept screen (level list) */
+.screen{position:fixed;inset:0;z-index:30;background:var(--paper);display:flex;flex-direction:column;animation:slideIn .28s}
+@keyframes slideIn{from{transform:translateX(34px);opacity:0}to{transform:none;opacity:1}}
+.shead{display:flex;align-items:center;gap:12px;padding:18px 18px 6px;max-width:540px;margin:0 auto;width:100%}
+.back{width:40px;height:40px;border-radius:13px;background:#fff;border:1.5px solid var(--line);
+  display:grid;place-items:center;font-size:21px;color:var(--ink-soft);flex:0 0 auto}
+.shead .ti{font-family:'Fredoka';font-weight:600;font-size:21px;letter-spacing:-.3px}
+.sbody{flex:1;overflow-y:auto;padding:8px 18px 30px;max-width:540px;margin:0 auto;width:100%}
+.deptintro{font-weight:700;color:var(--ink-soft);font-size:14.5px;margin:4px 2px 18px;line-height:1.4}
+
+.path{position:relative;padding-top:4px}
+.node{position:relative;display:flex;align-items:center;gap:15px;padding:9px 0;animation:rise .45s both}
+.disc{flex:0 0 auto;width:62px;height:62px;border-radius:20px;display:grid;place-items:center;font-size:26px;
+  position:relative;box-shadow:var(--shadow);transition:transform .15s}
+.disc.done{color:#fff}.disc.open{background:#fff;border:2.5px solid var(--coral)}
+.disc.lock{background:#F2ECE2;color:#C9BFAE;box-shadow:none}
+.node.tap:active .disc{transform:scale(.93)}
+.disc .ck{position:absolute;right:-5px;bottom:-5px;width:23px;height:23px;border-radius:50%;background:var(--sun);
+  color:#7a4d00;display:grid;place-items:center;font-size:12px;border:3px solid var(--paper)}
+.nbody{flex:1;min-width:0}
+.nbody .t{font-family:'Fredoka';font-weight:600;font-size:17.5px;letter-spacing:-.2px}
+.nbody .d{color:var(--ink-soft);font-weight:700;font-size:13px;margin-top:1px;line-height:1.25}
+.go{flex:0 0 auto;width:36px;height:36px;border-radius:12px;background:var(--coral);color:#fff;
+  display:grid;place-items:center;font-size:18px;font-weight:900;box-shadow:var(--shadow-sm)}
+.node.lockrow{opacity:.6}.node.lockrow .go{display:none}
+.connector{position:absolute;left:30px;top:62px;width:2px;height:36px;
+  background:repeating-linear-gradient(var(--line) 0 6px,transparent 6px 11px)}
+
+/* name gate */
+.gate{position:fixed;inset:0;z-index:60;background:linear-gradient(160deg,#FFF3E8,#E7F7F3);
+  display:grid;place-items:center;padding:26px;text-align:center}
+.gate .box{max-width:380px;animation:rise .5s both}
+.gate .emoji{font-size:60px;margin-bottom:10px}
+.gate h2{font-size:27px;font-family:'Fredoka';font-weight:600;letter-spacing:-.4px;line-height:1.15}
+.gate p{color:var(--ink-soft);font-weight:700;margin:10px 0 22px;font-size:15px}
+.gate input{width:100%;text-align:center;font-family:'Fredoka';font-size:22px;font-weight:500;padding:16px;
+  border:2.5px solid var(--line);border-radius:18px;background:#fff;color:var(--ink);outline:none}
+.gate input:focus{border-color:var(--coral)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;width:100%;
+  font-family:'Fredoka';font-weight:600;font-size:18px;color:#fff;background:var(--coral);
+  padding:15px;border-radius:17px;box-shadow:0 7px 0 -2px var(--coral-dk);transition:transform .1s,box-shadow .1s}
+.btn:active{transform:translateY(3px);box-shadow:0 4px 0 -2px var(--coral-dk)}
+.btn.teal{background:var(--teal);box-shadow:0 7px 0 -2px var(--teal-dk)}
+.btn.ghost{background:#fff;color:var(--ink-soft);box-shadow:0 0 0 2px var(--line) inset;font-size:16px}
+.btn:disabled{opacity:.4;box-shadow:none}
+
+/* lesson */
+.lesson{position:fixed;inset:0;z-index:40;background:var(--paper);display:flex;flex-direction:column;animation:slideIn .28s}
+.lhead{display:flex;align-items:center;gap:13px;padding:18px 18px 8px;max-width:540px;margin:0 auto;width:100%}
+.xbtn{width:38px;height:38px;border-radius:12px;background:#fff;border:1.5px solid var(--line);
+  display:grid;place-items:center;font-size:19px;color:var(--ink-soft);flex:0 0 auto}
+.steps{flex:1;height:12px;background:#F0EBE2;border-radius:99px;overflow:hidden}
+.steps>i{display:block;height:100%;background:linear-gradient(90deg,var(--coral),var(--sun));border-radius:99px;transition:width .4s}
+.lbody{flex:1;overflow-y:auto;padding:10px 18px 18px;max-width:540px;margin:0 auto;width:100%}
+.lfoot{padding:12px 18px calc(16px + env(safe-area-inset-bottom));max-width:540px;margin:0 auto;width:100%;
+  background:linear-gradient(transparent,var(--paper) 30%)}
+.foot-row{display:flex;gap:10px}
+.foot-row .btn{flex:1}
+.foot-row .btn.ghost{flex:0 0 38%}
+.feedback{font-family:'Fredoka';font-weight:600;font-size:15.5px;text-align:center;margin-bottom:9px;min-height:20px}
+.feedback.ok{color:var(--green)}.feedback.no{color:var(--coral-dk)}
+
+.kicker{font-family:'Fredoka';font-weight:600;color:var(--coral);text-transform:uppercase;letter-spacing:1.5px;
+  font-size:12px;text-align:center;margin-top:6px}
+.qhead{font-family:'Fredoka';font-weight:600;font-size:22px;text-align:center;letter-spacing:-.3px;margin:5px 0 16px;line-height:1.2}
+
+/* flashcard */
+.flash{background:var(--card);border:1.5px solid var(--line);border-radius:24px;box-shadow:var(--shadow);
+  padding:26px 22px;text-align:center;margin-top:6px}
+.flash .emoji{font-size:54px;line-height:1;margin-bottom:6px}
+.flash .big{font-family:'Fredoka';font-weight:600;font-size:34px;letter-spacing:-.5px;line-height:1.1}
+.flash .pt{color:var(--ink-soft);font-weight:800;font-size:17px;margin-top:6px}
+.flash .ph{justify-self:center;display:inline-block;margin-top:6px;font-size:14px}
+.spkrow{display:flex;gap:9px;justify-content:center;margin-top:16px}
+.speak{display:inline-flex;align-items:center;gap:7px;background:var(--teal);color:#fff;
+  font-family:'Fredoka';font-weight:600;font-size:15px;padding:10px 16px;border-radius:99px;box-shadow:var(--shadow-sm)}
+.speak.slow{background:#fff;color:var(--teal-dk);box-shadow:0 0 0 2px var(--teal) inset}
+.speak:active{transform:scale(.94)}
+.exbox{margin-top:18px;background:#FBF6EE;border-radius:15px;padding:13px 15px;text-align:left}
+.exbox .en{font-weight:800;font-size:15.5px}
+.exbox .ptx{color:var(--ink-soft);font-weight:700;font-size:13.5px;margin-top:2px}
+.exbox .speak{margin-top:9px}
+.dots{display:flex;gap:6px;justify-content:center;margin-top:16px;flex-wrap:wrap}
+.dots i{width:8px;height:8px;border-radius:50%;background:var(--line)}
+.dots i.on{background:var(--coral);width:20px;border-radius:99px}
+
+/* quiz */
+.opts{display:flex;flex-direction:column;gap:10px;margin-top:4px}
+.opt{display:flex;align-items:center;gap:11px;background:#fff;border:2px solid var(--line);border-radius:16px;
+  padding:15px;font-weight:800;font-size:16.5px;text-align:left;box-shadow:var(--shadow-sm);transition:transform .08s}
+.opt:active{transform:scale(.985)}
+.opt .key{width:25px;height:25px;border-radius:8px;background:#F4EFE6;display:grid;place-items:center;
+  font-family:'Fredoka';font-size:13px;color:var(--ink-soft);flex:0 0 auto}
+.opt.right{border-color:var(--green);background:#EEFBF3}.opt.right .key{background:var(--green);color:#fff}
+.opt.wrong{border-color:var(--red);background:#FDEEEC}.opt.wrong .key{background:var(--red);color:#fff}
+.opt.dim{opacity:.5}
+
+/* match / image-match */
+.mgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:4px}
+.chip{background:#fff;border:2px solid var(--line);border-radius:15px;padding:14px 10px;font-weight:800;
+  font-size:15.5px;text-align:center;min-height:56px;display:grid;place-items:center;box-shadow:var(--shadow-sm);transition:.12s}
+.chip.en{font-family:'Fredoka';font-weight:600}
+.chip.big{font-size:34px}
+.chip.sel{border-color:var(--grape);background:#F2EEFF;transform:translateY(-2px)}
+.chip.matched{border-color:var(--teal);background:#E6F8F5;color:var(--teal-dk);opacity:.6;pointer-events:none}
+.chip.miss{border-color:var(--red);animation:shake .35s}
+@keyframes shake{0%,100%{transform:none}25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
+
+/* sentence build */
+.answer{min-height:58px;background:#fff;border:2px dashed var(--line);border-radius:15px;padding:11px;
+  display:flex;flex-wrap:wrap;gap:7px;align-content:flex-start;margin-top:6px}
+.bank{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px;justify-content:center}
+.word{background:#fff;border:2px solid var(--line);border-radius:12px;padding:10px 14px;font-family:'Fredoka';
+  font-weight:600;font-size:16px;box-shadow:var(--shadow-sm)}
+.word.used{opacity:.3;pointer-events:none}
+.word.placed{background:#F2EEFF;border-color:var(--grape)}
+.answer.right{border-color:var(--green);border-style:solid;background:#EEFBF3}
+
+/* phrase / listen&repeat */
+.phrase{background:#fff;border:1.5px solid var(--line);border-radius:16px;padding:14px;margin-top:10px;box-shadow:var(--shadow-sm)}
+.phrase .top{display:flex;align-items:flex-start;gap:11px}
+.phrase .txt{flex:1;min-width:0}
+.phrase .en{font-weight:800;font-size:16px}
+.phrase .ptx{color:var(--ink-soft);font-weight:700;font-size:13.5px;margin-top:2px}
+.phrase .bs{display:flex;flex-direction:column;gap:6px;flex:0 0 auto}
+.mini{width:40px;height:40px;border-radius:12px;display:grid;place-items:center;font-size:17px;flex:0 0 auto}
+.mini.t{background:#E6F8F5;color:var(--teal-dk)}.mini.s{background:#FFF3E0;color:#C98A12}
+.rep{margin-top:11px;display:flex;align-items:center;gap:9px;border-top:1px dashed var(--line);padding-top:11px}
+.rep .lbl{font-weight:800;font-size:13px;color:var(--ink-soft);flex:1}
+.rep .rate{display:flex;gap:7px}
+.rate button{width:42px;height:38px;border-radius:11px;font-size:18px;background:#F6F1E8;border:1.5px solid var(--line)}
+.rate button.good.on{background:var(--green);border-color:var(--green)}
+.rate button.bad.on{background:#FDEEEC;border-color:var(--red)}
+
+/* song card */
+.song{background:var(--card);border:1.5px solid var(--line);border-radius:22px;box-shadow:var(--shadow);
+  padding:20px;margin-top:6px;text-align:center}
+.song .name{font-family:'Fredoka';font-weight:600;font-size:24px;letter-spacing:-.4px}
+.song .art{color:var(--ink-soft);font-weight:800;font-size:14px;margin-top:1px}
+.song .theme{background:#FBF6EE;border-radius:14px;padding:12px 14px;margin-top:14px;font-weight:700;font-size:14px;text-align:left;color:#6a5a3e}
+.spfy{display:inline-flex;align-items:center;gap:8px;background:#1DB954;color:#fff;font-family:'Fredoka';
+  font-weight:600;font-size:15px;padding:11px 20px;border-radius:99px;margin-top:14px;text-decoration:none;box-shadow:var(--shadow-sm)}
+.spfy:active{transform:scale(.95)}
+.songline{text-align:left;background:#fff;border:1.5px solid var(--line);border-radius:14px;padding:12px 14px;margin-top:11px;
+  display:flex;align-items:center;gap:11px;box-shadow:var(--shadow-sm)}
+.songline .txt{flex:1}.songline .en{font-weight:800;font-size:15.5px}.songline .ptx{color:var(--ink-soft);font-weight:700;font-size:13px;margin-top:1px}
+
+/* quote card */
+.quote{background:var(--card);border:1.5px solid var(--line);border-radius:22px;box-shadow:var(--shadow);
+  padding:26px 22px;margin-top:6px;text-align:center;position:relative}
+.quote .mk{font-family:'Fredoka';font-size:48px;color:var(--line);line-height:.6}
+.quote .q{font-family:'Fredoka';font-weight:500;font-size:23px;line-height:1.25;letter-spacing:-.3px;margin-top:6px}
+.quote .au{font-weight:900;color:var(--coral);font-size:14px;margin-top:12px;text-transform:uppercase;letter-spacing:1px}
+.quote .tr{color:var(--ink-soft);font-weight:700;font-style:italic;font-size:14.5px;margin-top:8px}
+
+/* complete + cando */
+.done{position:fixed;inset:0;z-index:50;display:grid;place-items:center;text-align:center;padding:28px;
+  background:linear-gradient(160deg,#FFF1E2,#E6F7F2)}
+.done .card{max-width:380px;animation:pop .5s both}
+@keyframes pop{from{opacity:0;transform:scale(.85)}to{opacity:1;transform:none}}
+.done .medal{font-size:70px;animation:spin 1.1s ease}
+@keyframes spin{from{transform:rotate(-25deg) scale(.5)}to{transform:none}}
+.done h2{font-family:'Fredoka';font-weight:600;font-size:28px;margin-top:4px;letter-spacing:-.4px}
+.cando{background:#fff;border-radius:18px;padding:16px 18px;margin-top:16px;box-shadow:var(--shadow-sm);text-align:left}
+.cando .h{font-family:'Fredoka';font-weight:600;font-size:14px;color:var(--teal-dk);display:flex;align-items:center;gap:7px}
+.cando .b{font-weight:800;font-size:15.5px;margin-top:6px;line-height:1.35}
+.reward{display:inline-flex;align-items:center;gap:8px;background:#fff;border-radius:99px;padding:9px 18px;
+  font-family:'Fredoka';font-weight:600;font-size:19px;color:var(--sun);margin-top:16px;box-shadow:var(--shadow-sm)}
+.reward .x{color:var(--ink)}
+.confetti{position:fixed;top:-12px;width:11px;height:16px;border-radius:2px;z-index:55;animation:fall linear forwards}
+@keyframes fall{to{transform:translateY(105vh) rotate(540deg);opacity:.85}}
+
+.note{font-size:12.5px;color:var(--ink-soft);font-weight:700;text-align:center;margin-top:26px;line-height:1.5;opacity:.85}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+
+<!-- NAME GATE -->
+<div class="gate" id="gate">
+  <div class="box">
+    <div class="emoji">👋</div>
+    <h2>Welcome!<br>Como podemos te chamar?</h2>
+    <p>Digite seu primeiro nome para começar a jornada.</p>
+    <input id="nameInput" type="text" placeholder="Seu nome" autocomplete="off" maxlength="18" value="Eliz">
+    <button class="btn" id="startBtn" style="margin-top:16px">Começar &nbsp;→</button>
+  </div>
+</div>
+
+<!-- HOME -->
+<div class="wrap" id="home" style="display:none">
+  <div class="topbar">
+    <div class="brand"><span class="logo">✦</span> English Path</div>
+    <div class="stats">
+      <div class="pill xp"><span class="ic">★</span><span id="xpVal">0</span></div>
+      <div class="pill streak"><span class="ic">🔥</span><span id="streakVal">1</span></div>
+    </div>
+  </div>
+  <div class="hi">Hi, <b id="greetName">Eliz</b> 👋<br>o que vamos treinar?</div>
+  <div class="sub" id="motiv">Escolha um departamento. Eles são independentes!</div>
+
+  <div class="wod" id="wod"></div>
+  <button class="review" id="reviewBtn">
+    <span class="big">🎯</span>
+    <span>Revisão do dia<small>Mistura palavras que você já viu</small></span>
+  </button>
+
+  <div class="section-h">Departamentos</div>
+  <div class="grid" id="grid"></div>
+
+  <div class="note">🔊 Toque para ouvir · 🐢 ouvir devagar · seu progresso fica salvo neste aparelho.</div>
+</div>
+
+<!-- DEPT SCREEN -->
+<div class="screen hidden" id="dept">
+  <div class="shead">
+    <button class="back" id="deptBack">‹</button>
+    <div class="ti" id="deptTitle"></div>
+  </div>
+  <div class="sbody">
+    <div class="deptintro" id="deptIntro"></div>
+    <div class="path" id="deptPath"></div>
+  </div>
+</div>
+
+<!-- LESSON -->
+<div class="lesson hidden" id="lesson">
+  <div class="lhead">
+    <button class="xbtn" id="quitLesson">✕</button>
+    <div class="steps"><i id="stepFill" style="width:0%"></i></div>
+  </div>
+  <div class="lbody" id="lbody"></div>
+  <div class="lfoot" id="lfoot"></div>
+</div>
+
+<!-- COMPLETE -->
+<div class="done hidden" id="doneScreen"></div>
+
+<script>
+/* =====================================================================
+   CONTENT
+   Each department is independent. Levels inside unlock in order.
+   vocab item: {en, pt, ph, img?, ex:[en,pt,ph]}
+   phrase item: {en, pt, ph}
+   level: {title, sub, cando, kind, vocab[], phrases[]}
+   kind: 'lesson' (default) | 'words' | 'songs' | 'quotes'
+   ===================================================================== */
+const DEPTS = [
+{ id:"words", name:"Decorar Palavras", icon:"🧠", color:"#7C5CFC",
+  blurb:"Memorize palavras com imagens",
+  intro:"O jeito mais rápido de fixar palavras: ver a imagem e a palavra juntas. Ótimo para começar do zero.",
+  levels:[
+   { title:"Em casa", sub:"Objetos do dia a dia", kind:"words",
+     cando:"Nomear objetos comuns e dizer onde as coisas estão dentro de casa.",
+     vocab:[
+       {en:"house",pt:"casa",ph:"ráus",img:"🏠",ex:["This is my house.","Esta é minha casa.","dís iz mái ráus"]},
+       {en:"key",pt:"chave",ph:"kii",img:"🔑",ex:["I have the key.","Eu tenho a chave.","ái rév dã kii"]},
+       {en:"book",pt:"livro",ph:"búk",img:"📖",ex:["I read a book.","Eu leio um livro.","ái ríid ã búk"]},
+       {en:"phone",pt:"telefone",ph:"fôun",img:"📱",ex:["Where is my phone?","Cadê meu telefone?","uér iz mái fôun"]},
+       {en:"car",pt:"carro",ph:"cár",img:"🚗",ex:["The car is blue.","O carro é azul.","dã cár iz blú"]},
+       {en:"clock",pt:"relógio",ph:"clóc",img:"🕐",ex:["Look at the clock.","Olhe o relógio.","lúk ét dã clóc"]}
+     ],
+     phrases:[
+       {en:"Where is my phone?",pt:"Onde está meu telefone?",ph:"uér iz mái fôun"},
+       {en:"This is my house.",pt:"Esta é a minha casa.",ph:"dís iz mái ráus"},
+       {en:"I have the key.",pt:"Eu tenho a chave.",ph:"ái rév dã kii"}
+     ]},
+   { title:"Comida e bebida", sub:"No café e no mercado", kind:"words",
+     cando:"Pedir comida e bebida simples num café, padaria ou restaurante.",
+     vocab:[
+       {en:"water",pt:"água",ph:"uóter",img:"💧",ex:["I want water.","Quero água.","ái uónt uóter"]},
+       {en:"coffee",pt:"café",ph:"cófi",img:"☕",ex:["A coffee, please.","Um café, por favor.","ã cófi plíz"]},
+       {en:"bread",pt:"pão",ph:"bréd",img:"🍞",ex:["I like bread.","Gosto de pão.","ái láik bréd"]},
+       {en:"apple",pt:"maçã",ph:"épou",img:"🍎",ex:["This apple is red.","Esta maçã é vermelha.","dís épou iz réd"]},
+       {en:"milk",pt:"leite",ph:"mílk",img:"🥛",ex:["Milk and coffee.","Leite e café.","mílk end cófi"]},
+       {en:"rice",pt:"arroz",ph:"ráis",img:"🍚",ex:["Rice and beans.","Arroz e feijão.","ráis end bíins"]}
+     ],
+     phrases:[
+       {en:"I want a coffee, please.",pt:"Quero um café, por favor.",ph:"ái uóntã cófi, plíz"},
+       {en:"Can I have some water?",pt:"Posso pegar uma água?",ph:"quén ái rév sãm uóter?"},
+       {en:"I like bread and milk.",pt:"Gosto de pão e leite.",ph:"ái láik bréd end mílk"}
+     ]}
+  ]},
+
+{ id:"family", name:"Família", icon:"👨‍👩‍👧", color:"#FF6B5B",
+  blurb:"Falar sobre quem você ama",
+  intro:"Apresentar e conversar sobre a sua família — um dos primeiros assuntos com qualquer pessoa nova.",
+  levels:[
+   { title:"Minha família", sub:"Os membros da família", kind:"lesson",
+     cando:"Apresentar e falar sobre os membros da sua família para alguém novo.",
+     vocab:[
+       {en:"mother",pt:"mãe",ph:"máder",img:"👩",ex:["This is my mother.","Esta é minha mãe.","dís iz mái máder"]},
+       {en:"father",pt:"pai",ph:"fáder",img:"👨",ex:["My father is kind.","Meu pai é gentil.","mái fáder iz cáind"]},
+       {en:"sister",pt:"irmã",ph:"síster",img:"👧",ex:["I have one sister.","Tenho uma irmã.","ái rév uân síster"]},
+       {en:"brother",pt:"irmão",ph:"bráder",img:"👦",ex:["My brother is tall.","Meu irmão é alto.","mái bráder iz tóu"]},
+       {en:"husband",pt:"marido",ph:"râsband",img:"💍",ex:["My husband works.","Meu marido trabalha.","mái râsband uêrks"]},
+       {en:"daughter",pt:"filha",ph:"dóter",img:"👶",ex:["My daughter is small.","Minha filha é pequena.","mái dóter iz smól"]}
+     ],
+     phrases:[
+       {en:"This is my mother.",pt:"Esta é minha mãe.",ph:"dís iz mái máder"},
+       {en:"I have one sister.",pt:"Tenho uma irmã.",ph:"ái rév uân síster"},
+       {en:"My husband is at work.",pt:"Meu marido está no trabalho.",ph:"mái râsband iz ét uêrk"},
+       {en:"I love my family.",pt:"Amo minha família.",ph:"ái lóv mái fémili"}
+     ]},
+   { title:"Falando da família", sub:"Conversar com mais detalhes", kind:"lesson",
+     cando:"Conversar sobre a sua família com novos amigos e colegas no exterior.",
+     vocab:[
+       {en:"family",pt:"família",ph:"fémili",img:"👨‍👩‍👧",ex:["A big family.","Uma família grande.","ã bíg fémili"]},
+       {en:"child",pt:"criança",ph:"tcháiuld",img:"🧒",ex:["A happy child.","Uma criança feliz.","ã répi tcháiuld"]},
+       {en:"parents",pt:"pais",ph:"pérents",img:"👫",ex:["My parents are here.","Meus pais estão aqui.","mái pérents ár rír"]},
+       {en:"home",pt:"lar",ph:"rôum",img:"🏡",ex:["Home is love.","Lar é amor.","rôum iz lóv"]},
+       {en:"together",pt:"juntos",ph:"tuguéder",img:"🤝",ex:["We are together.","Estamos juntos.","uí ár tuguéder"]},
+       {en:"love",pt:"amor",ph:"lóv",img:"❤️",ex:["Love is everything.","Amor é tudo.","lóv iz évrifing"]}
+     ],
+     phrases:[
+       {en:"We are a big family.",pt:"Somos uma família grande.",ph:"uí ár ã bíg fémili"},
+       {en:"My parents live in Brazil.",pt:"Meus pais moram no Brasil.",ph:"mái pérents lív in brãzíu"},
+       {en:"We are happy together.",pt:"Somos felizes juntos.",ph:"uí ár répi tuguéder"}
+     ]}
+  ]},
+
+{ id:"work", name:"Ambiente de Trabalho", icon:"💼", color:"#10B5A4",
+  blurb:"Escritório, reuniões e compliance",
+  intro:"Do escritório à reunião online, até o vocabulário de compliance e proteção de dados — o inglês que você usa no trabalho.",
+  levels:[
+   { title:"No escritório", sub:"O básico do trabalho", kind:"lesson",
+     cando:"Se virar num escritório: marcar reunião, pedir ajuda e falar de prazos.",
+     vocab:[
+       {en:"email",pt:"e-mail",ph:"ímeu",img:"📧",ex:["I'll send an email.","Vou enviar um e-mail.","áu sénd ãn ímeu"]},
+       {en:"meeting",pt:"reunião",ph:"míting",img:"📅",ex:["I have a meeting.","Tenho uma reunião.","ái rév ã míting"]},
+       {en:"manager",pt:"gerente",ph:"ménijer",img:"👔",ex:["This is my manager.","Este é meu gerente.","dís iz mái ménijer"]},
+       {en:"deadline",pt:"prazo",ph:"déd-láin",img:"⏰",ex:["The deadline is Friday.","O prazo é sexta.","dã déd-láin iz fráidei"]},
+       {en:"report",pt:"relatório",ph:"ripórt",img:"📄",ex:["I finished the report.","Terminei o relatório.","ái fínixt dã ripórt"]},
+       {en:"team",pt:"equipe",ph:"tíim",img:"👥",ex:["We are a good team.","Somos uma boa equipe.","uí ár ã gúd tíim"]}
+     ],
+     phrases:[
+       {en:"I have a meeting at ten.",pt:"Tenho reunião às dez.",ph:"ái rév ã míting ét tén"},
+       {en:"I'll send you an email.",pt:"Vou te enviar um e-mail.",ph:"áu sêndiú ãn ímeu"},
+       {en:"Can you help me, please?",pt:"Você pode me ajudar?",ph:"quén iú rélp mi, plíz?"},
+       {en:"What is the deadline?",pt:"Qual é o prazo?",ph:"uót iz dã déd-láin?"}
+     ]},
+   { title:"Em reunião", sub:"Reuniões e calls online", kind:"lesson",
+     cando:"Participar de uma reunião online: pedir para repetir, fazer perguntas e compartilhar a tela.",
+     vocab:[
+       {en:"I agree",pt:"eu concordo",ph:"ái ãgríi",img:"✅",ex:["Yes, I agree.","Sim, concordo.","iés, ái ãgríi"]},
+       {en:"question",pt:"pergunta",ph:"cuéstchãn",img:"❓",ex:["A good question.","Uma boa pergunta.","ã gúd cuéstchãn"]},
+       {en:"to share",pt:"compartilhar",ph:"tchéer",img:"🖥️",ex:["I'll share it.","Vou compartilhar.","áu tchéer it"]},
+       {en:"to repeat",pt:"repetir",ph:"ripíit",img:"🔁",ex:["Please repeat.","Repita, por favor.","plíz ripíit"]},
+       {en:"clear",pt:"claro",ph:"clíer",img:"💡",ex:["Is that clear?","Está claro?","iz dét clíer?"]},
+       {en:"to schedule",pt:"agendar",ph:"skédiul",img:"🗓️",ex:["Let's schedule it.","Vamos agendar.","léts skédiul it"]}
+     ],
+     phrases:[
+       {en:"Can everyone hear me?",pt:"Todos conseguem me ouvir?",ph:"quén évriuan rír mi?"},
+       {en:"Sorry, can you repeat that?",pt:"Desculpe, pode repetir?",ph:"sóri, quén iú ripíit dét?"},
+       {en:"I have a question.",pt:"Eu tenho uma pergunta.",ph:"ái rév ã cuéstchãn"},
+       {en:"Let me share my screen.",pt:"Vou compartilhar a tela.",ph:"lét mi tchéer mái scríin"}
+     ]},
+   { title:"Compliance & Dados", sub:"O inglês da sua área", kind:"lesson",
+     cando:"Explicar o que você faz em compliance e privacidade — perfeito para uma entrevista no exterior!",
+     vocab:[
+       {en:"data",pt:"dados",ph:"dêita",img:"🗂️",ex:["We protect data.","Protegemos os dados.","uí prãtéct dêita"]},
+       {en:"privacy",pt:"privacidade",ph:"práivãci",img:"🔒",ex:["Privacy matters.","Privacidade importa.","práivãci méters"]},
+       {en:"audit",pt:"auditoria",ph:"ódit",img:"🔍",ex:["We have an audit.","Temos uma auditoria.","uí rév ãn ódit"]},
+       {en:"risk",pt:"risco",ph:"rísk",img:"⚠️",ex:["A low risk.","Um risco baixo.","ã lôu rísk"]},
+       {en:"consent",pt:"consentimento",ph:"cãnssént",img:"✍️",ex:["We need consent.","Precisamos de consentimento.","uí níid cãnssént"]},
+       {en:"regulation",pt:"regulamentação",ph:"réguiulêixãn",img:"📋",ex:["A new regulation.","Uma nova regulamentação.","ã níu réguiulêixãn"]}
+     ],
+     phrases:[
+       {en:"We must protect personal data.",pt:"Devemos proteger dados pessoais.",ph:"uí mâst prãtéct pêrsonãu dêita"},
+       {en:"We need consent to use the data.",pt:"Precisamos de consentimento para usar os dados.",ph:"uí níid cãnssént tchu iúz dã dêita"},
+       {en:"I work with data protection laws.",pt:"Trabalho com leis de proteção de dados.",ph:"ái uêrk uíd dêita prãtékxãn lóz"}
+     ]}
+  ]},
+
+{ id:"church", name:"Relacionamento na Igreja", icon:"⛪", color:"#F0A030",
+  blurb:"Fé, oração e comunidade",
+  intro:"Vocabulário e frases para participar de um culto, orar e conversar sobre fé com a comunidade.",
+  levels:[
+   { title:"Na igreja", sub:"Palavras da fé", kind:"lesson",
+     cando:"Participar de um culto em inglês e conversar sobre fé com a comunidade.",
+     vocab:[
+       {en:"church",pt:"igreja",ph:"tchêrtch",img:"⛪",ex:["I go to church.","Vou à igreja.","ái gôu tchu tchêrtch"]},
+       {en:"God",pt:"Deus",ph:"gód",img:"🙏",ex:["God is good.","Deus é bom.","gód iz gúd"]},
+       {en:"prayer",pt:"oração",ph:"préier",img:"🕊️",ex:["A short prayer.","Uma oração curta.","ã xórt préier"]},
+       {en:"faith",pt:"fé",ph:"féif",img:"✝️",ex:["I have faith.","Eu tenho fé.","ái rév féif"]},
+       {en:"Bible",pt:"Bíblia",ph:"báibou",img:"📖",ex:["Read the Bible.","Leia a Bíblia.","ríid dã báibou"]},
+       {en:"worship",pt:"adoração",ph:"uêrxip",img:"🎶",ex:["Time to worship.","Hora de adorar.","táim tchu uêrxip"]}
+     ],
+     phrases:[
+       {en:"I go to church on Sunday.",pt:"Vou à igreja no domingo.",ph:"ái gôu tchu tchêrtch on sândei"},
+       {en:"Let us pray.",pt:"Vamos orar.",ph:"lét ãs préi"},
+       {en:"God bless you.",pt:"Deus te abençoe.",ph:"gód blés iú"},
+       {en:"I have faith.",pt:"Eu tenho fé.",ph:"ái rév féif"}
+     ]},
+   { title:"Fé e comunidade", sub:"Gratidão e bênção", kind:"lesson",
+     cando:"Expressar gratidão e fé, e fazer parte de um grupo de igreja no exterior.",
+     vocab:[
+       {en:"to believe",pt:"crer",ph:"bilíiv",img:"💭",ex:["I believe in God.","Creio em Deus.","ái bilíiv in gód"]},
+       {en:"grace",pt:"graça",ph:"gréis",img:"✨",ex:["By grace.","Pela graça.","bái gréis"]},
+       {en:"peace",pt:"paz",ph:"píis",img:"☮️",ex:["Peace and love.","Paz e amor.","píis end lóv"]},
+       {en:"thankful",pt:"grato",ph:"fénkfou",img:"🙏",ex:["I am thankful.","Sou grata.","ái ém fénkfou"]},
+       {en:"blessing",pt:"bênção",ph:"blésing",img:"🎁",ex:["A blessing.","Uma bênção.","ã blésing"]},
+       {en:"hope",pt:"esperança",ph:"rôup",img:"🌅",ex:["Never lose hope.","Nunca perca a esperança.","néver lúz rôup"]}
+     ],
+     phrases:[
+       {en:"I believe in God.",pt:"Creio em Deus.",ph:"ái bilíiv in gód"},
+       {en:"Thank you for this blessing.",pt:"Obrigada por esta bênção.",ph:"fénk iú fór dís blésing"},
+       {en:"Peace be with you.",pt:"A paz esteja com você.",ph:"píis bí uíd iú"}
+     ]}
+  ]},
+
+{ id:"daily", name:"Dia a Dia", icon:"☕", color:"#E86F9E",
+  blurb:"Cumprimentos, rua e aeroporto",
+  intro:"O inglês de sobrevivência: cumprimentar, ser educada, pedir ajuda e se virar num aeroporto.",
+  levels:[
+   { title:"Cumprimentos", sub:"Educação e conversa", kind:"lesson",
+     cando:"Cumprimentar pessoas, ser educada e começar uma conversa simples.",
+     vocab:[
+       {en:"hello",pt:"olá",ph:"rélou",img:"👋",ex:["Hello!","Olá!","rélou"]},
+       {en:"please",pt:"por favor",ph:"plíz",img:"🙏",ex:["Help, please.","Ajuda, por favor.","rélp, plíz"]},
+       {en:"thank you",pt:"obrigada",ph:"fénk iú",img:"🙇",ex:["Thank you!","Obrigada!","fénk iú"]},
+       {en:"sorry",pt:"desculpe",ph:"sóri",img:"😅",ex:["Sorry, I'm late.","Desculpe, atrasei.","sóri, áim léit"]},
+       {en:"yes",pt:"sim",ph:"iés",img:"✅",ex:["Yes, please.","Sim, por favor.","iés, plíz"]},
+       {en:"no",pt:"não",ph:"nôu",img:"❌",ex:["No, thank you.","Não, obrigada.","nôu, fénk iú"]}
+     ],
+     phrases:[
+       {en:"Hello, how are you?",pt:"Olá, como vai?",ph:"rélou, ráu ár iú?"},
+       {en:"I'm fine, thank you.",pt:"Estou bem, obrigada.",ph:"áim fáin, fénk iú"},
+       {en:"Nice to meet you.",pt:"Prazer em conhecer.",ph:"náis tchu míit iú"},
+       {en:"Have a nice day!",pt:"Tenha um bom dia!",ph:"rév ã náis dei"}
+     ]},
+   { title:"Aeroporto e ajuda", sub:"Viajar sozinha", kind:"lesson",
+     cando:"Se virar sozinha num aeroporto: achar lugares, pedir ajuda e mostrar documentos.",
+     vocab:[
+       {en:"airport",pt:"aeroporto",ph:"érport",img:"✈️",ex:["At the airport.","No aeroporto.","ét dã érport"]},
+       {en:"ticket",pt:"passagem",ph:"tíket",img:"🎫",ex:["My ticket.","Minha passagem.","mái tíket"]},
+       {en:"passport",pt:"passaporte",ph:"pésport",img:"🛂",ex:["Here is my passport.","Aqui está meu passaporte.","rír iz mái pésport"]},
+       {en:"help",pt:"ajuda",ph:"rélp",img:"🆘",ex:["I need help.","Preciso de ajuda.","ái níid rélp"]},
+       {en:"where",pt:"onde",ph:"uér",img:"🧭",ex:["Where is it?","Onde fica?","uér iz it?"]},
+       {en:"bathroom",pt:"banheiro",ph:"bésrum",img:"🚻",ex:["The bathroom.","O banheiro.","dã bésrum"]}
+     ],
+     phrases:[
+       {en:"Where is the bathroom?",pt:"Onde fica o banheiro?",ph:"uér iz dã bésrum?"},
+       {en:"Can you help me, please?",pt:"Pode me ajudar, por favor?",ph:"quén iú rélp mi, plíz?"},
+       {en:"Here is my passport.",pt:"Aqui está meu passaporte.",ph:"rír iz mái pésport"},
+       {en:"I don't understand.",pt:"Não entendo.",ph:"ái dôunt ãndersténd"}
+     ]}
+  ]},
+
+{ id:"news", name:"Atualidades", icon:"📰", color:"#3B82C4",
+  blurb:"Notícias e tecnologia",
+  intro:"Vocabulário para comentar notícias, tecnologia e o que acontece no mundo.",
+  levels:[
+   { title:"Notícias e tecnologia", sub:"Comentar o mundo", kind:"lesson",
+     cando:"Comentar notícias e assuntos atuais numa conversa do dia a dia.",
+     vocab:[
+       {en:"news",pt:"notícias",ph:"níuz",img:"📰",ex:["The morning news.","As notícias da manhã.","dã mórning níuz"]},
+       {en:"world",pt:"mundo",ph:"uêrld",img:"🌎",ex:["Around the world.","Pelo mundo.","ãráund dã uêrld"]},
+       {en:"technology",pt:"tecnologia",ph:"teknóloji",img:"💻",ex:["New technology.","Nova tecnologia.","níu teknóloji"]},
+       {en:"money",pt:"dinheiro",ph:"mâni",img:"💰",ex:["Time is money.","Tempo é dinheiro.","táim iz mâni"]},
+       {en:"internet",pt:"internet",ph:"ínternét",img:"🌐",ex:["On the internet.","Na internet.","on dã ínternét"]},
+       {en:"change",pt:"mudança",ph:"tchéinj",img:"🔄",ex:["A big change.","Uma grande mudança.","ã bíg tchéinj"]}
+     ],
+     phrases:[
+       {en:"I read the news every day.",pt:"Leio as notícias todo dia.",ph:"ái réd dã níuz évri dei"},
+       {en:"Technology is changing the world.",pt:"A tecnologia muda o mundo.",ph:"teknóloji iz tchéinjing dã uêrld"},
+       {en:"What's happening in the world?",pt:"O que está acontecendo no mundo?",ph:"uóts répening in dã uêrld?"}
+     ]}
+  ]},
+
+{ id:"culture", name:"Cultura", icon:"🌍", color:"#16A38A",
+  blurb:"Países, costumes e você",
+  intro:"Falar do seu país, da sua cultura e do que você gosta com pessoas de outros lugares.",
+  levels:[
+   { title:"Países e costumes", sub:"Sua identidade em inglês", kind:"lesson",
+     cando:"Falar sobre seu país, sua cultura e seus gostos com pessoas de outros lugares.",
+     vocab:[
+       {en:"country",pt:"país",ph:"cântri",img:"🌍",ex:["A beautiful country.","Um país lindo.","ã biútifou cântri"]},
+       {en:"language",pt:"idioma",ph:"lénguij",img:"🗣️",ex:["My language.","Meu idioma.","mái lénguij"]},
+       {en:"food",pt:"comida",ph:"fúud",img:"🍽️",ex:["Brazilian food.","Comida brasileira.","brãzíliãn fúud"]},
+       {en:"music",pt:"música",ph:"miúzik",img:"🎵",ex:["I love music.","Amo música.","ái lóv miúzik"]},
+       {en:"travel",pt:"viajar",ph:"trével",img:"✈️",ex:["I want to travel.","Quero viajar.","ái uóntu trével"]},
+       {en:"friend",pt:"amigo",ph:"frénd",img:"🧑‍🤝‍🧑",ex:["A good friend.","Um bom amigo.","ã gúd frénd"]}
+     ],
+     phrases:[
+       {en:"I am from Brazil.",pt:"Sou do Brasil.",ph:"ái ém from brãzíu"},
+       {en:"I love Brazilian food.",pt:"Amo comida brasileira.",ph:"ái lóv brãzíliãn fúud"},
+       {en:"I want to travel the world.",pt:"Quero viajar o mundo.",ph:"ái uóntu trével dã uêrld"}
+     ]}
+  ]},
+
+{ id:"music", name:"Músicas — João Gomes", icon:"🎵", color:"#1DB954",
+  blurb:"Aprenda pelo clima das músicas",
+  intro:"As músicas que você ama, em inglês. Não dá pra reproduzir a letra (direitos autorais), então cada faixa vira o tema dela em inglês — com frases de amor e saudade pra você cantar, e o link direto pro Spotify.",
+  levels:[
+   { title:"Amor & Saudade", sub:"4 músicas do João Gomes", kind:"songs",
+     cando:"Entender o clima das músicas que você ama em inglês e dizer frases de amor e saudade.",
+     songs:[
+       { name:"Dengo", artist:"João Gomes",
+         link:"https://open.spotify.com/track/6Ulh9GPYz6JKdv04qc3q2U",
+         theme:"Tema: o carinho e o aconchego de estar com quem se ama. Em inglês, a gente fala desse aconchego assim:",
+         lines:[
+           {en:"You are my love.",pt:"Você é meu amor.",ph:"iú ár mái lóv"},
+           {en:"I feel happy with you.",pt:"Me sinto feliz com você.",ph:"ái fíil répi uíd iú"}
+         ]},
+       { name:"Lembrei de Nós", artist:"João Gomes, Mestrinho, Jota.pê",
+         link:"https://open.spotify.com/track/3MZasYL4eB4Tm2U2LZ58tj",
+         theme:"Tema: a saudade e a lembrança de um amor. Em inglês, a saudade vira:",
+         lines:[
+           {en:"I remember us.",pt:"Eu lembro de nós.",ph:"ái rimémber ãs"},
+           {en:"I miss you.",pt:"Sinto sua falta.",ph:"ái mís iú"}
+         ]},
+       { name:"Aquelas Coisas", artist:"João Gomes",
+         link:"https://open.spotify.com/track/2aJm1uVFVtTlbEXSIxcOAs",
+         theme:"Tema: as pequenas coisas que fazem o amor especial. Em inglês:",
+         lines:[
+           {en:"Those little things.",pt:"Aquelas coisinhas.",ph:"dôuz lítou fíngs"},
+           {en:"I think about you.",pt:"Penso em você.",ph:"ái fínk ãbáut iú"}
+         ]},
+       { name:"Meu Pedaço de Pecado", artist:"João Gomes",
+         link:"https://open.spotify.com/track/0KbGTtipoc4GnUiYEVzfQh",
+         theme:"Tema: a paixão que a gente não consegue resistir. Em inglês:",
+         lines:[
+           {en:"You are my weakness.",pt:"Você é minha fraqueza.",ph:"iú ár mái uíknes"},
+           {en:"I can't stop loving you.",pt:"Não paro de te amar.",ph:"ái quént stóp lóving iú"}
+         ]}
+     ]}
+  ]},
+
+{ id:"quotes", name:"Frases Inspiradoras", icon:"✨", color:"#9B59D0",
+  blurb:"Citações famosas e autores",
+  intro:"Frases curtas e famosas em inglês, com o autor, a tradução e a pronúncia. Ótimas para se motivar e impressionar numa conversa.",
+  levels:[
+   { title:"Para se inspirar", sub:"6 frases famosas", kind:"quotes",
+     cando:"Usar frases inspiradoras em inglês para se motivar e brilhar numa conversa.",
+     quotes:[
+       {en:"Dream big and dare to fail.",au:"Norman Vaughan",pt:"Sonhe grande e ouse falhar.",ph:"dríim bíg end dér tchu féiu"},
+       {en:"The best way out is always through.",au:"Robert Frost",pt:"A melhor saída é sempre por dentro.",ph:"dã bést uêi áut iz óuweiz frú"},
+       {en:"Stay hungry, stay foolish.",au:"Steve Jobs",pt:"Continue faminto, continue tolo.",ph:"stêi rângri, stêi fúulix"},
+       {en:"It always seems impossible until it's done.",au:"Nelson Mandela",pt:"Sempre parece impossível até ser feito.",ph:"it óuweiz síims impóssibou ãntiu its dân"},
+       {en:"Whatever you are, be a good one.",au:"Abraham Lincoln",pt:"Seja o que for, seja bom nisso.",ph:"uótever iú ár, bí ã gúd uân"},
+       {en:"Believe you can and you're halfway there.",au:"Theodore Roosevelt",pt:"Acredite e você já está na metade do caminho.",ph:"bilíiv iú quén end iór réfuêi dér"}
+     ]}
+  ]}
+];
+
+/* =====================================================================
+   STATE + STORAGE (graceful fallback; persists when opened locally)
+   ===================================================================== */
+const mem={};
+const store={get(k){try{return localStorage.getItem(k)}catch(e){return k in mem?mem[k]:null}},
+             set(k,v){try{localStorage.setItem(k,v)}catch(e){mem[k]=v}}};
+let S=load();
+function load(){try{const r=store.get("eng2");if(r)return JSON.parse(r);}catch(e){}return {name:"",xp:0,streak:1,done:{},seen:[]};}
+function save(){store.set("eng2",JSON.stringify(S));}
+function key(d,i){return d+":"+i;}
+
+/* =====================================================================
+   AUDIO
+   ===================================================================== */
+let enVoice=null;
+function pickVoice(){if(!('speechSynthesis'in window))return;const v=speechSynthesis.getVoices();
+  enVoice=v.find(x=>x.lang==='en-US'&&/female|samantha|zira|google|jenny|aria/i.test(x.name))
+        ||v.find(x=>x.lang==='en-US')||v.find(x=>x.lang&&x.lang.startsWith('en'))||null;}
+if('speechSynthesis'in window){speechSynthesis.onvoiceschanged=pickVoice;pickVoice();}
+function speak(t,slow){if(!('speechSynthesis'in window))return;speechSynthesis.cancel();
+  const u=new SpeechSynthesisUtterance(t.replace(/…/g,''));u.lang='en-US';u.rate=slow?0.55:0.9;u.pitch=1.02;
+  if(enVoice)u.voice=enVoice;speechSynthesis.speak(u);}
+
+/* helpers */
+const $=s=>document.querySelector(s);
+const shuffle=a=>a.map(x=>[Math.random(),x]).sort((p,q)=>p[0]-q[0]).map(x=>x[1]);
+const esc=s=>s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+const speakBtns=(t,label)=>`<button class="speak" onclick="speak('${t.replace(/'/g,"\\'")}')"><span>🔊</span>${label?' '+label:''}</button>
+  <button class="speak slow" onclick="speak('${t.replace(/'/g,"\\'")}',true)"><span>🐢</span></button>`;
+
+/* =====================================================================
+   GATE
+   ===================================================================== */
+const nameInput=$("#nameInput"),startBtn=$("#startBtn");
+startBtn.onclick=()=>{const n=nameInput.value.trim()||"Eliz";
+  S.name=n.replace(/\b\w/g,c=>c.toUpperCase());save();$("#gate").style.display='none';openHome();};
+nameInput.addEventListener('keydown',e=>{if(e.key==='Enter')startBtn.click();});
+if(S.name){$("#gate").style.display='none';openHome();}
+
+/* =====================================================================
+   HOME
+   ===================================================================== */
+function deptProgress(d){const n=d.levels.length;let done=0;
+  for(let i=0;i<n;i++)if(S.done[key(d.id,i)])done++;return {done,total:n};}
+
+function openHome(){
+  $("#home").style.display='block';
+  ["#dept","#lesson","#doneScreen"].forEach(s=>$(s).classList.add('hidden'));
+  $("#greetName").textContent=(S.name||"Eliz").split(' ')[0];
+  $("#xpVal").textContent=S.xp;$("#streakVal").textContent=S.streak;
+  // word of the day
+  const all=[];DEPTS.forEach(d=>d.levels.forEach(l=>(l.vocab||[]).forEach(v=>all.push(v))));
+  const wod=all[(new Date().getDate()*7)%all.length];
+  $("#wod").innerHTML=`<div class="tag">Palavra do dia</div>
+    <div class="w">${esc(wod.en)}</div><div class="t">${esc(wod.pt)}</div><div class="ph">${esc(wod.ph)}</div>
+    <button class="spk" onclick="speak('${wod.en.replace(/'/g,"\\'")}')">🔊</button>`;
+  // dept grid
+  const grid=$("#grid");grid.innerHTML='';
+  DEPTS.forEach((d,idx)=>{
+    const p=deptProgress(d);const pct=Math.round(p.done/p.total*100);
+    const el=document.createElement('button');el.className='dept';el.style.animationDelay=(idx*.04)+'s';
+    el.innerHTML=`<div class="ic" style="background:${d.color}">${d.icon}</div>
+      <div class="t">${esc(d.name)}</div><div class="d">${esc(d.blurb)}</div>
+      <div class="bar"><i style="width:${pct}%;background:${d.color}"></i></div>
+      <div class="lv">${p.done}/${p.total} níveis ${p.done===p.total?'✓':''}</div>`;
+    el.onclick=()=>openDept(d);grid.appendChild(el);
+  });
+}
+$("#reviewBtn").onclick=startReview;
+
+/* =====================================================================
+   DEPARTMENT SCREEN
+   ===================================================================== */
+let CURDEPT=null;
+function openDept(d){
+  CURDEPT=d;
+  $("#home").style.display='none';$("#dept").classList.remove('hidden');
+  $("#deptTitle").textContent=d.name;$("#deptIntro").textContent=d.intro;
+  const path=$("#deptPath");path.innerHTML='';
+  d.levels.forEach((L,i)=>{
+    const done=!!S.done[key(d.id,i)];
+    const open=done||i===0||!!S.done[key(d.id,i-1)];
+    const node=document.createElement('div');
+    node.className='node '+(open?'tap':'lockrow');node.style.animationDelay=(i*.05)+'s';
+    const st=done?'done':open?'open':'lock';
+    node.innerHTML=`${i<d.levels.length-1?'<div class="connector"></div>':''}
+      <div class="disc ${st}" style="${done?'background:'+d.color+';color:#fff':''}">
+        ${open?(done?'✓':'★'):'🔒'}${done?'<span class="ck">✓</span>':''}</div>
+      <div class="nbody"><div class="t">${esc(L.title)}</div><div class="d">${esc(L.sub)}</div></div>
+      ${open?'<div class="go" style="background:'+d.color+'">›</div>':''}`;
+    if(open)node.onclick=()=>startLevel(d,i);
+    path.appendChild(node);
+  });
+}
+$("#deptBack").onclick=openHome;
+
+/* =====================================================================
+   LESSON ENGINE
+   ===================================================================== */
+let CUR=null,CURI=0,FLOW=[],step=0,earned=0,REVIEW=false;
+
+function startLevel(d,i){
+  CUR=d.levels[i];CURDEPT=d;CURI=i;earned=0;step=0;REVIEW=false;
+  FLOW=buildFlow(CUR);
+  enterLesson();
+}
+function startReview(){
+  // gather vocab from completed levels (or all if none done)
+  let pool=[];DEPTS.forEach(d=>d.levels.forEach((l,i)=>{if(S.done[key(d.id,i)])pool=pool.concat(l.vocab||[]);}));
+  if(pool.length<4){pool=[];DEPTS.forEach(d=>d.levels.forEach(l=>pool=pool.concat(l.vocab||[])));}
+  pool=shuffle(pool).slice(0,6);
+  CUR={title:"Revisão do dia",cando:"Manter na memória as palavras que você já aprendeu. A repetição é o segredo!"};
+  CURDEPT={id:"__review",color:"#7C5CFC"};CURI=-1;earned=0;step=0;REVIEW=true;
+  FLOW=pool.map(v=>quizStep(v,pool)).concat([{type:'cando'}]);
+  enterLesson();
+}
+function enterLesson(){
+  $("#home").style.display='none';$("#dept").classList.add('hidden');
+  $("#lesson").classList.remove('hidden');
+  $("#quitLesson").onclick=()=>{if(confirm('Sair? O progresso desta atividade não será salvo.'))REVIEW?openHome():openDept(CURDEPT);};
+  renderStep();
+}
+
+function buildFlow(L){
+  const f=[];
+  if(L.kind==='songs'){
+    L.songs.forEach(s=>f.push({type:'song',s}));
+    const vlines=[];L.songs.forEach(s=>s.lines.forEach(x=>vlines.push({en:x.en,pt:x.pt,ph:x.ph})));
+    shuffle(vlines).slice(0,4).forEach(v=>f.push(quizStep(v,vlines)));
+    f.push({type:'cando'});return f;
+  }
+  if(L.kind==='quotes'){
+    L.quotes.forEach(q=>f.push({type:'quote',q}));
+    f.push({type:'qauthor',quotes:L.quotes});
+    f.push({type:'cando'});return f;
+  }
+  // lesson / words
+  L.vocab.forEach((v,idx)=>f.push({type:'flash',v,idx,total:L.vocab.length}));
+  const hasImg=L.vocab.every(v=>v.img);
+  f.push(hasImg?{type:'imgmatch',pairs:L.vocab.slice(0,4)}:{type:'match',pairs:L.vocab.slice(0,4)});
+  shuffle(L.vocab).slice(0,4).forEach(v=>f.push(quizStep(v,L.vocab)));
+  if(L.phrases&&L.phrases.length)f.push({type:'build',p:L.phrases[0]});
+  if(L.phrases&&L.phrases.length)f.push({type:'phrases',list:L.phrases});
+  f.push({type:'cando'});
+  return f;
+}
+function quizStep(v,pool){
+  const opts=shuffle([v.pt,...shuffle(pool.map(p=>p.pt).filter(p=>p!==v.pt)).slice(0,3)]);
+  return {type:'quiz',v,options:opts,answer:v.pt};
+}
+
+function renderStep(){
+  const f=FLOW[step];
+  $("#stepFill").style.width=Math.round(step/FLOW.length*100)+"%";
+  const b=$("#lbody"),ft=$("#lfoot");b.scrollTop=0;
+  ({flash:rFlash,quiz:rQuiz,match:rMatch,imgmatch:rImg,build:rBuild,phrases:rPhrases,
+    song:rSong,quote:rQuote,qauthor:rQAuthor,cando:rCando})[f.type](f,b,ft);
+}
+function foot(primaryLabel,primaryEnabled,onPrimary,primaryClass){
+  const ft=$("#lfoot");
+  ft.innerHTML=`<div class="feedback" id="fb"></div><div class="foot-row">
+    <button class="btn ghost" id="bk">‹ Voltar</button>
+    <button class="btn ${primaryClass||''}" id="nx" ${primaryEnabled?'':'disabled'}>${primaryLabel}</button></div>`;
+  $("#bk").onclick=back;$("#nx").onclick=onPrimary||next;
+}
+function back(){if(step===0){REVIEW?openHome():openDept(CURDEPT);return;}step--;renderStep();}
+function next(){step++;if(step>=FLOW.length){finish();return;}renderStep();}
+
+/* ---- flashcard ---- */
+function rFlash(f,b){
+  const v=f.v;
+  b.innerHTML=`<div class="kicker">Nova palavra · ${f.idx+1}/${f.total}</div>
+   <div class="flash">
+     ${v.img?`<div class="emoji">${v.img}</div>`:''}
+     <div class="big">${esc(v.en)}</div>
+     <div class="pt">${esc(v.pt)}</div>
+     <div class="ph">${esc(v.ph)}</div>
+     <div class="spkrow">${speakBtns(v.en,'Ouvir')}</div>
+     <div class="exbox"><div class="en">"${esc(v.ex[0])}"</div><div class="ph">${esc(v.ex[2])}</div>
+       <div class="ptx">${esc(v.ex[1])}</div>${speakBtns(v.ex[0],'Ouvir a frase')}</div>
+   </div>
+   <div class="dots">${FLOW.filter(x=>x.type==='flash').map((_,i)=>`<i class="${i===f.idx?'on':''}"></i>`).join('')}</div>`;
+  foot('Continuar',true,next);
+  setTimeout(()=>speak(v.en),250);
+}
+
+/* ---- quiz ---- */
+function rQuiz(f,b){
+  b.innerHTML=`<div class="kicker">Quiz</div><div class="qhead">O que significa?</div>
+   <div class="flash" style="padding:20px"><div class="big">${esc(f.v.en)}</div>
+     <div class="ph">${esc(f.v.ph)}</div><div class="spkrow">${speakBtns(f.v.en,'Ouvir')}</div></div>
+   <div class="opts" id="opts">${f.options.map((o,i)=>`<button class="opt" data-v="${esc(o)}">
+     <span class="key">${'ABCD'[i]}</span><span>${esc(o)}</span></button>`).join('')}</div>`;
+  foot('Continuar',false,next);
+  setTimeout(()=>speak(f.v.en),250);
+  let done=false;
+  [...document.querySelectorAll('.opt')].forEach(o=>o.onclick=()=>{
+    if(done)return;done=true;const ok=o.dataset.v===f.answer;
+    document.querySelectorAll('.opt').forEach(x=>{
+      if(x.dataset.v===f.answer)x.classList.add('right');
+      else if(x===o)x.classList.add('wrong');else x.classList.add('dim');});
+    const fb=$("#fb");
+    if(ok){earned+=10;fb.textContent="✓ Isso! +10";fb.className="feedback ok";}
+    else{fb.textContent="Resposta: "+f.answer;fb.className="feedback no";speak(f.v.en);}
+    $("#nx").disabled=false;
+  });
+}
+
+/* ---- word↔translation match ---- */
+function rMatch(f,b){matchEngine(f,b,'pt');}
+function rImg(f,b){matchEngine(f,b,'img');}
+function matchEngine(f,b,rightField){
+  b.innerHTML=`<div class="kicker">Jogo · combine os pares</div>
+   <div class="qhead">${rightField==='img'?'Ligue a palavra à imagem':'Toque no inglês e na tradução'}</div>
+   <div class="mgrid" id="grid"></div>`;
+  foot('Continuar',false,next);
+  const items=[];
+  f.pairs.forEach((p,i)=>{items.push({k:i,side:'en',t:p.en});
+    items.push({k:i,side:'r',t:rightField==='img'?p.img:p.pt,big:rightField==='img'});});
+  const grid=$("#grid");
+  shuffle(items).forEach(it=>{const c=document.createElement('button');
+    c.className='chip '+(it.side==='en'?'en':'')+(it.big?' big':'');c.textContent=it.t;
+    c.dataset.k=it.k;c.dataset.side=it.side;grid.appendChild(c);});
+  let sel=null,matched=0;
+  grid.querySelectorAll('.chip').forEach(c=>c.onclick=()=>{
+    if(c.classList.contains('matched'))return;
+    if(c.dataset.side==='en')speak(c.textContent);
+    if(!sel){sel=c;c.classList.add('sel');return;}
+    if(sel===c){c.classList.remove('sel');sel=null;return;}
+    if(sel.dataset.k===c.dataset.k&&sel.dataset.side!==c.dataset.side){
+      [sel,c].forEach(x=>{x.classList.remove('sel');x.classList.add('matched');});
+      sel=null;matched++;earned+=5;
+      if(matched===f.pairs.length){$("#fb").textContent="Perfeito! 🎉";$("#fb").className="feedback ok";$("#nx").disabled=false;}
+    }else{const a=sel,d=c;a.classList.add('miss');d.classList.add('miss');
+      setTimeout(()=>{a.classList.remove('miss','sel');d.classList.remove('miss');},380);sel=null;}
+  });
+}
+
+/* ---- sentence build ---- */
+function rBuild(f,b){
+  const words=f.p.en.replace(/[?.!,]/g,'').split(' ');
+  b.innerHTML=`<div class="kicker">Monte a frase</div>
+   <div class="qhead">${esc(f.p.pt)}</div>
+   <div class="answer" id="ans"></div>
+   <div class="bank" id="bank">${shuffle(words.map((w,i)=>({w,i}))).map(o=>
+     `<button class="word" data-i="${o.i}">${esc(o.w)}</button>`).join('')}</div>
+   <div class="ph" style="text-align:center;margin-top:14px">${esc(f.p.ph)}</div>`;
+  foot('Continuar',false,next);
+  const ans=$("#ans"),bank=$("#bank"),placed=[];
+  function refresh(){
+    ans.innerHTML=placed.map((p,idx)=>`<button class="word placed" data-p="${idx}">${esc(p.w)}</button>`).join('');
+    ans.querySelectorAll('[data-p]').forEach(el=>el.onclick=()=>{
+      const idx=+el.dataset.p;const it=placed.splice(idx,1)[0];
+      bank.querySelector(`[data-i="${it.i}"]`).classList.remove('used');refresh();check();});
+  }
+  function check(){
+    if(placed.length!==words.length)return;
+    const ok=placed.map(p=>p.w).join(' ')===words.join(' ');
+    if(ok){ans.classList.add('right');$("#fb").textContent="✓ Frase correta! +10";$("#fb").className="feedback ok";
+      earned+=10;$("#nx").disabled=false;speak(f.p.en);}
+    else{$("#fb").textContent="Quase! Toque numa palavra para tirar e tente de novo.";$("#fb").className="feedback no";}
+  }
+  bank.querySelectorAll('.word').forEach(el=>el.onclick=()=>{
+    if(el.classList.contains('used'))return;el.classList.add('used');
+    placed.push({w:el.textContent,i:+el.dataset.i});refresh();check();});
+}
+
+/* ---- phrases: listen & repeat self-check ---- */
+function rPhrases(f,b){
+  b.innerHTML=`<div class="kicker">Frases prontas</div><div class="qhead">Ouça, repita e marque 👍</div>
+   <div id="plist"></div>`;
+  foot('Concluir nível ✓',true,next,'teal');
+  const list=$("#plist");
+  f.list.forEach((p,i)=>{
+    const row=document.createElement('div');row.className='phrase';
+    row.innerHTML=`<div class="top">
+        <div class="txt"><div class="en">${esc(p.en)}</div><div class="ph">${esc(p.ph)}</div>
+          <div class="ptx">${esc(p.pt)}</div></div>
+        <div class="bs"><button class="mini t">🔊</button><button class="mini s">🐢</button></div>
+      </div>
+      <div class="rep"><div class="lbl">🎙️ Repita em voz alta — conseguiu?</div>
+        <div class="rate"><button class="bad">👎</button><button class="good">👍</button></div></div>`;
+    list.appendChild(row);
+    row.querySelector('.mini.t').onclick=()=>speak(p.en);
+    row.querySelector('.mini.s').onclick=()=>speak(p.en,true);
+    const good=row.querySelector('.good'),bad=row.querySelector('.bad');let rated=false;
+    good.onclick=()=>{good.classList.add('on');bad.classList.remove('on');if(!rated){earned+=5;rated=true;}};
+    bad.onclick=()=>{bad.classList.add('on');good.classList.remove('on');speak(p.en,true);};
+    setTimeout(()=>{if(i===0)speak(p.en);},250);
+  });
+}
+
+/* ---- song ---- */
+function rSong(f,b){
+  const s=f.s;
+  b.innerHTML=`<div class="kicker">Música · tema em inglês</div>
+   <div class="song"><div class="name">${esc(s.name)}</div><div class="art">${esc(s.artist)}</div>
+     <a class="spfy" href="${s.link}" target="_blank" rel="noopener">🎧 Ouvir no Spotify</a>
+     <div class="theme">${esc(s.theme)}</div>
+     ${s.lines.map(l=>`<div class="songline"><button class="mini t" onclick="speak('${l.en.replace(/'/g,"\\'")}')">🔊</button>
+        <div class="txt"><div class="en">${esc(l.en)}</div><div class="ph">${esc(l.ph)}</div>
+        <div class="ptx">${esc(l.pt)}</div></div></div>`).join('')}
+   </div>`;
+  foot('Continuar',true,next,'teal');
+}
+
+/* ---- quote ---- */
+function rQuote(f,b){
+  const q=f.q;
+  b.innerHTML=`<div class="kicker">Frase inspiradora</div>
+   <div class="quote"><div class="mk">"</div><div class="q">${esc(q.en)}</div>
+     <div class="ph" style="display:inline-block;margin-top:10px">${esc(q.ph)}</div>
+     <div class="au">— ${esc(q.au)}</div><div class="tr">${esc(q.pt)}</div>
+     <div class="spkrow">${speakBtns(q.en,'Ouvir')}</div></div>`;
+  foot('Continuar',true,next);
+  setTimeout(()=>speak(q.en),250);
+}
+function rQAuthor(f,b){
+  const q=shuffle(f.quotes)[0];
+  const opts=shuffle([q.au,...shuffle(f.quotes.map(x=>x.au).filter(a=>a!==q.au)).slice(0,2)]);
+  b.innerHTML=`<div class="kicker">Quiz</div><div class="qhead">Quem disse esta frase?</div>
+   <div class="quote" style="padding:20px"><div class="q" style="font-size:19px">"${esc(q.en)}"</div></div>
+   <div class="opts" id="opts" style="margin-top:14px">${opts.map((o,i)=>`<button class="opt" data-v="${esc(o)}">
+     <span class="key">${'ABC'[i]}</span><span>${esc(o)}</span></button>`).join('')}</div>`;
+  foot('Continuar',false,next);
+  let done=false;
+  [...document.querySelectorAll('.opt')].forEach(o=>o.onclick=()=>{
+    if(done)return;done=true;const ok=o.dataset.v===q.au;
+    document.querySelectorAll('.opt').forEach(x=>{if(x.dataset.v===q.au)x.classList.add('right');
+      else if(x===o)x.classList.add('wrong');else x.classList.add('dim');});
+    const fb=$("#fb");if(ok){earned+=10;fb.textContent="✓ Certo! +10";fb.className="feedback ok";}
+    else{fb.textContent="Foi "+q.au;fb.className="feedback no";}
+    $("#nx").disabled=false;});
+}
+
+/* ---- cando (last step before complete) ---- */
+function rCando(f,b){
+  b.innerHTML=`<div class="kicker">Quase lá!</div>
+   <div class="qhead">Você está pronta 🎉</div>
+   <div class="cando"><div class="h">🎯 Com este nível você já consegue</div>
+     <div class="b">${esc(CUR.cando)}</div></div>
+   <div style="text-align:center;margin-top:22px;font-size:46px">🌟</div>`;
+  foot('Finalizar',true,finish,'teal');
+}
+
+/* =====================================================================
+   FINISH
+   ===================================================================== */
+function finish(){
+  $("#stepFill").style.width="100%";
+  let fresh=false;
+  if(!REVIEW){fresh=!S.done[key(CURDEPT.id,CURI)];if(fresh)S.done[key(CURDEPT.id,CURI)]=true;}
+  S.xp+=earned;save();
+  const ds=$("#doneScreen");
+  ds.innerHTML=`<div class="card">
+     <div class="medal">${REVIEW?'🎯':fresh?'🏅':'🔁'}</div>
+     <h2>${REVIEW?'Revisão feita!':fresh?'Nível concluído!':'Boa revisão!'}</h2>
+     <div class="cando" style="text-align:left"><div class="h">🎯 Agora você consegue</div>
+       <div class="b">${esc(CUR.cando)}</div></div>
+     <div class="reward"><span>★</span> +${earned} <span class="x">XP</span></div>
+     <button class="btn" id="bk" style="margin-top:22px">${REVIEW?'Voltar ao início':'Voltar aos níveis'}</button>
+   </div>`;
+  ds.classList.remove('hidden');$("#lesson").classList.add('hidden');
+  if(fresh||REVIEW)confetti();
+  $("#bk").onclick=()=>{ds.classList.add('hidden');REVIEW?openHome():openDept(CURDEPT);};
+}
+function confetti(){const c=['#FF6B5B','#FFC24B','#10B5A4','#7C5CFC','#2FB873'];
+  for(let i=0;i<70;i++){const e=document.createElement('div');e.className='confetti';
+    e.style.left=Math.random()*100+'vw';e.style.background=c[i%c.length];
+    e.style.animationDuration=(1.6+Math.random()*1.4)+'s';e.style.animationDelay=(Math.random()*.4)+'s';
+    e.style.transform=`rotate(${Math.random()*360}deg)`;document.body.appendChild(e);
+    setTimeout(()=>e.remove(),3200);}}
+</script>
+</body>
+</html>
